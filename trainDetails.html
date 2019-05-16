@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Details</title>
+</head>
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    axios.defaults.baseURL = 'http://localhost:8080';
+    let headers = {};
+    function getHeaders() {
+        let headers = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true,
+
+        };
+
+        return headers;
+    }
+
+
+    axios.get('/train', { headers: getHeaders() })
+        .then(response=> {
+            let entries = response.data;
+            mapFoodResults(entries, 'food-list', true);
+        })
+        .catch(rejection => {
+
+        });
+
+     /*   $.get("http://localhost:8080/train", function(data) {
+
+            $.each(data, function(i, contact) {
+
+                $(".data-contacts-js").append(
+                    "<tr><td>" + contact.trainNo + "</td>" +
+                    "<td>" + contact.trainName + "</td>" +
+                    "<td>" + contact.seats+ "</td></tr>");
+            });
+
+        });*/
+
+
+</script>
+<body>
+
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+    <tr>
+        <th>Train No and Name</th>
+        <th>Seats</th>
+        <th>Start-Destination</th>
+        <th>Train Date and Time</th>
+        <th>Station</th>
+        <th>Add</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Tiger Nixon</td>
+        <td>System Architect</td>
+        <td>Edinburgh</td>
+        <td>61</td>
+        <td>2011/04/25</td>
+        <td>$320,800</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Train No and Name</th>
+        <th>Seats</th>
+        <th>Start-Destination</th>
+        <th>Train Date and Time</th>
+        <th>Station</th>
+        <th>Add</th>
+    </tr>
+    </tfoot>
+</table>
+
+<table class="data-contacts-js table table-striped" >
+    <tr>
+        <th>Name</th>
+        <th>Telephone</th>
+        <th>Email</th>
+        </tr>
+</table>
+
+<ul id="food-list" class="list-group">
+    <!--  jQuery will insert the LI here. -->
+</ul>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+
+</script>
+
+</body>
+</html>
