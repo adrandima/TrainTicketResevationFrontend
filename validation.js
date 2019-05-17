@@ -1,3 +1,7 @@
+
+
+
+
 (function($){
     function insertTicketDetails( e ){
         $.ajax({
@@ -52,6 +56,7 @@
 
         e.preventDefault();
     }
+
 
 
 
