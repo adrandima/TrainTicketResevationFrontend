@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Train</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+
+
+</script>
+</head>
+<body>
+
+<form>
+    <div class="form-group">
+        <label for="startSelect">Start</label>
+        <select class="form-control" id="startSelect">
+            <option>Choose</option>
+        </select>
+
+        <label for="endSelect">Destination</label>
+        <select class="form-control" id="endSelect">
+            <option>Choose</option>
+        </select>
+    </div>
+
+    <button type="button" class="btn btn-info" onclick="lordTicketReservation()">Info</button>
+</form>
+
+<script>
+
+    var employees = JSON.parse(localStorage["trainDetails"]);
+    console.log(employees);
+
+
+    var selectStart = document.getElementById("startSelect");
+    var selectEnd = document.getElementById("endSelect");
+    var options = employees.stopStations;
+
+    console.log(options);
+
+    function getStationDetails(select){
+        for(var i = 0; i < options.length; i++) {
+            var opt = options[i].station;
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = i;
+
+            select.appendChild(el);
+
+        }
+    }
+    getStationDetails(selectStart);
+    getStationDetails(selectEnd);
+
+    $('#startSelect').on('change', function (event) {
+        var minVal = $('#startSelect').val();
+        console.log(minVal);
+        $('#endSelect option').each(function () {
+            if($(this).val() <= minVal)
+            {
+                $(this).prop('disabled', true);
+            }else{
+                $(this).prop('disabled', false);
+            }
+        });
+    });
+
+    $('#endSelect').on('change', function (event) {
+        var maxVal = $('#endSelect').val();
+        $('#startSelect option').each(function () {
+            if($(this).val() >= maxVal)
+            {
+                $(this).prop('disabled', true);
+            }else{
+                $(this).prop('disabled', false);
+            }
+        });
+    });
+
+    function lordTicketReservation(){
+        console.log("Test ticket reservation");
+
+
+
+        localStorage["trainStartPlace"] = $('#startSelect :selected').text();
+        localStorage["trainDestinationPlace"] = $('#endSelect :selected').text();
+        window.location.href = "http://localhost:63342/TrainTicketResevationFrontend/payment.html?_ijt=9hhtrm8m9kv8dm09a6hal86ktd";
+
+    }
+
+
+</script>
+</body>
+</html>

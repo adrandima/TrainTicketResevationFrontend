@@ -22,8 +22,8 @@
         <th>Seats</th>
         <th>Start-Destination</th>
         <th>Train Date and Time</th>
-        <th>Station</th>
-        <th>Add</th>
+        <th>Stations</th>
+
 
     </tr>
     </thead>
@@ -34,8 +34,8 @@
         <th>Seats</th>
         <th>Start-Destination</th>
         <th>Train Date and Time</th>
-        <th>Station</th>
-        <th>Add</th>
+        <th>Stations</th>
+
     </tr>
     </tfoot>
 </table>
@@ -54,9 +54,15 @@
         dataType: 'json',
 
         success: function (obj, textstatus) {
+            $('#example2 tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
 
 
-            $('#example2').DataTable({
+
+            var table = $('#example2').DataTable({
+
                 data: obj,
                 columns: [
                     {
@@ -78,15 +84,46 @@
                         },
                         editField: ['start', 'destination']
                     },
-                    { data: 'trainDate' },
-                    { data: 'startTime' },
-                    {   data: null,
-                        render : function(data, type, full) {
-                            return '<a class="btn btn-info btn-sm" href=#/' + full[0] + '>' + 'Select' + '</a>';
-                        }
-                    }
+
+                    {
+                        data: null,
+                        render: function ( data, type, row ) {
+                            // Combine the first and last names into a single table field
+                            return data.trainDate+' '+data.startTime;
+                        },
+                        editField: ['trainDate', 'startTime']
+                    },
+
+
+                    { data: 'stopStations[].station' },
+
                 ]
             });
+            table.columns().every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+
+
+
+            $('#example2 tbody').on('click', 'tr', function () {
+                var data = table.row( this ).data();
+
+                if(confirm("Do you want to select this train ?")){
+                    console.log("pressed");
+                    localStorage["trainDetails"] =JSON.stringify(data);
+                    console.log(data);
+                    window.location.href = "http://localhost:63342/TrainTicketResevationFrontend/selectTrain.html?_ijt=6ldlortpmnh4g4ektgn4mpon77";
+                }
+
+            } );
 
         },
         error: function (obj, textstatus) {

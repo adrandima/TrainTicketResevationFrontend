@@ -7,6 +7,14 @@
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    var trainStartPlace = localStorage["trainStartPlace"];
+    var trainDestinationPlace = localStorage["trainDestinationPlace"];
+    var selectedTrain = localStorage["trainDetails"]
+    console.log(trainStartPlace+","+trainDestinationPlace);
+
+</script>
+
 
 </head>
 <body>
@@ -32,6 +40,20 @@
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                             </div>
                         </div>
+
+
+                        <div class="form-group">
+                            <label for="cardNumber">
+                                NIC</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="nic" placeholder="NIC"
+                                       required autofocus />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
+                            </div>
+                        </div>
+
+
+
                         <div class="form-group">
                             <label for="cardNumber">
                                 CARD NUMBER</label>
