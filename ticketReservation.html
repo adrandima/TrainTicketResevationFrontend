@@ -16,10 +16,11 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <script src="./jquery-3.3.1.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script src="validation.js"></script>
 </head>
 <body>
 
@@ -27,23 +28,13 @@
 
     <p class="h4 mb-4">Ticket Reservation</p>
 
-    <form id="ticketReservationForm">
+
 
     <input type="text" id="noOfTickets" class="form-control" placeholder="No of Tickets"><br>
 
-    <div class="form-row mb-4">
-        <div class="col">
-
-            <input type="text" id="start" class="form-control" placeholder="Start">
-        </div>
-        <div class="col">
-
-            <input type="text" id="destination" class="form-control" placeholder="Destination">
-        </div>
-    </div>
 
     <input type="text" id="phoneNumber" class="form-control" placeholder="Phone number"><br>
-    <input class="form-control" type="date" value="2011-08-19" id="date"><br>
+
 
 
     <div class="form-group">
@@ -63,10 +54,9 @@
         <label class="custom-control-label" for="defaultRegisterFormNewsletter">Subscribe to our newsletter</label>
     </div>
 
-    <button class="btn btn-info my-4 btn-block" id="ticket-submit" type="submit">Submit</button>
+    <button class="btn btn-info my-4 btn-block"  onclick="redirectToPayment()" type="submit">Submit</button>
 
 
-</form>
-    <script src="validation.js"></script>
+
 </body>
 </html>

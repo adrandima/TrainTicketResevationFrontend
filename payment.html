@@ -7,11 +7,33 @@
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+
 <script>
     var trainStartPlace = localStorage["trainStartPlace"];
     var trainDestinationPlace = localStorage["trainDestinationPlace"];
-    var selectedTrain = localStorage["trainDetails"]
-    console.log(trainStartPlace+","+trainDestinationPlace);
+    var selectedTrain = JSON.parse(localStorage["trainDetails"]).stopStations;
+    var ticketDetails = JSON.parse(localStorage["ticketDetails"]);
+
+    var i = 0;
+    var ticketPrice = 0;
+    while(i<selectedTrain.length) {
+        if (JSON.stringify(selectedTrain[i].station) === JSON.stringify(trainStartPlace)) {
+            i++;
+            break;
+        }
+        i++;
+    }
+    while(i<selectedTrain.length) {
+        ticketPrice = ticketPrice + selectedTrain[i].price;
+        if(JSON.stringify(selectedTrain[i].station) ===  JSON.stringify(trainDestinationPlace)){
+            break;
+        }
+        i++;
+    }
+
+
+
 
 </script>
 
@@ -35,7 +57,7 @@
                             <label for="cardNumber">
                                 Full Name</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="fullname" placeholder="Full Name"
+                                <input type="text" class="form-control" id="name" placeholder="Full Name"
                                        required autofocus />
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                             </div>
@@ -87,7 +109,7 @@
                 </div>
             </div>
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><span class="badge pull-right"><span class="glyphicon glyphicon-usd"></span>4200</span> Final Payment</a>
+                <li class="active"><a href="#"><span class="badge pull-right">Rs.<span class="" id="ticketPriceSum"></span></span> Final Payment</a>
                 </li>
             </ul>
             <br/>
@@ -97,7 +119,26 @@
     </div>
     </form>
 </div>
+<script src="validation.js"></script>
+<script>
 
+    if((JSON.stringify(ticketDetails.trainClass)) === (JSON.stringify("Class A"))){
+        ticketPrice = ticketPrice*2*ticketDetails.noOfTickets;
+    }else{
+        ticketPrice = ticketPrice*ticketDetails.noOfTickets;
+    }
+    var discount = parseFloat(getUserDetails());
+
+
+
+
+
+    console.log(discount);
+    ticketPrice = ticketPrice * discount;
+    localStorage["ticketPrice"] =JSON.stringify(ticketPrice);
+    $("#ticketPriceSum").text(ticketPrice);
+
+ </script>
 
 
 </body>
