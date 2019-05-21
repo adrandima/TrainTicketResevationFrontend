@@ -8,7 +8,9 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script>
     var trainStartPlace = localStorage["trainStartPlace"];
     var trainDestinationPlace = localStorage["trainDestinationPlace"];
@@ -40,87 +42,120 @@
 
 </head>
 <body>
-<div class="container">
-    <form id="paymentForm">
-    <div class="row">
-        <div class="col-xs-12 col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Payment Details
-                    </h3>
 
-                </div>
-                <div class="panel-body">
-                    <form role="form">
-                        <div class="form-group">
-                            <label for="cardNumber">
-                                Full Name</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="name" placeholder="Full Name"
-                                       required autofocus />
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            </div>
-                        </div>
+<div class="container" style="align-content: center">
+
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">Credit Or Debit Card</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1">Dialog Payment</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="home" class="container tab-pane active" style="align-content: center"><br>
+            <h3 style="text-align: center">Credit Or Debit Card</h3>
+
+            <div class="container">
+                <form id="paymentForm">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        Payment Details
+                                    </h3>
+
+                                </div>
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label for="cardNumber">
+                                                Full Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="name" placeholder="Full Name"  pattern="^[a-zA-Z ]+$" minlength="5"
+                                                       required autofocus />
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                            </div>
+                                        </div>
 
 
-                        <div class="form-group">
-                            <label for="cardNumber">
-                                NIC</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="nic" placeholder="NIC"
-                                       required autofocus />
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
-                            </div>
-                        </div>
+                                        <div class="form-group">
+                                            <label for="cardNumber">
+                                                NIC</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="nic" placeholder="NIC" pattern="^([0-9]{9}[x|X|v|V]|[0-9]{12})$" minlength="10" maxlength="10"
+                                                       required autofocus />
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-ok"></span></span>
+                                            </div>
+                                        </div>
 
 
 
-                        <div class="form-group">
-                            <label for="cardNumber">
-                                CARD NUMBER</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
-                                       required autofocus />
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-7 col-md-7">
-                                <div class="form-group">
-                                    <label for="ex_Month">
-                                        EXPIRY DATE</label>
-                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                        <input type="text" class="form-control" id="ex_Month" placeholder="MM" required />
-                                    </div>
-                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                        <input type="text" class="form-control" id="ex_Year" placeholder="YY" required /></div>
+                                        <div class="form-group">
+                                            <label for="cardNumber">
+                                                CARD NUMBER</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number(Ex:4*****)" pattern="^(?:4[0-9]{12}(?:[0-9]{3})?)$" minlength="16" maxlength="16"
+                                                       required autofocus />
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7 col-md-7">
+                                                <div class="form-group">
+                                                    <label for="ex_Month">
+                                                        EXPIRY DATE</label>
+                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                        <input type="text" class="form-control" id="ex_Month" placeholder="MM" pattern="^[0-1]?[1-2]$" minlength="2" maxlength="2" required />
+                                                    </div>
+                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                        <input type="text" class="form-control" id="ex_Year" placeholder="YY" pattern="^[1-2]?[9-5]$" minlength="2" maxlength="2" required /></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-5 col-md-5 pull-right">
+                                                <div class="form-group">
+                                                    <label for="cvcCode">
+                                                        CV CODE</label>
+                                                    <input type="password" class="form-control" id="cvcCode" placeholder="CV"pattern="(?<=\s|^)\d+(?=\s|$)" minlength="3" maxlength="3" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="col-xs-5 col-md-5 pull-right">
-                                <div class="form-group">
-                                    <label for="cvcCode">
-                                        CV CODE</label>
-                                    <input type="password" class="form-control" id="cvcCode" placeholder="CV" required />
-                                </div>
-                            </div>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li class="active"><a href="#"><span class="badge pull-right">Rs.<span class="" id="ticketPriceSum"></span></span> Final Payment</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+                            <button class="btn btn-success btn-lg btn-block" id="payment-submit" type="submit">Submit</button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><span class="badge pull-right">Rs.<span class="" id="ticketPriceSum"></span></span> Final Payment</a>
-                </li>
-            </ul>
-            <br/>
-
-            <button class="btn btn-success btn-lg btn-block" id="payment-submit" type="submit">Submit</button>
         </div>
+        <div id="menu1" class="container tab-pane fade"><br>
+            <h3>Menu 1</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
     </div>
-    </form>
 </div>
+
+
 <script src="validation.js"></script>
 <script>
+    $('#myTab a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
 
     if((JSON.stringify(ticketDetails.trainClass)) === (JSON.stringify("Class A"))){
         ticketPrice = ticketPrice*2*ticketDetails.noOfTickets;

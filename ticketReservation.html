@@ -20,7 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-    <script src="validation.js"></script>
+
 </head>
 <body>
 
@@ -29,11 +29,11 @@
     <p class="h4 mb-4">Ticket Reservation</p>
 
 
+<form id="selectReservation">
+    <input type="text" id="noOfTickets" class="form-control" placeholder="No of Tickets" pattern="(?<=\s|^)\d+(?=\s|$)" minlength="1" maxlength="3" required><br>
 
-    <input type="text" id="noOfTickets" class="form-control" placeholder="No of Tickets"><br>
 
-
-    <input type="text" id="phoneNumber" class="form-control" placeholder="Phone number"><br>
+    <input type="text" id="phoneNumber" class="form-control" placeholder="Phone number" pattern="(?<=\s|^)\d+(?=\s|$)" minlength="10" maxlength="10" required><br>
 
 
 
@@ -49,14 +49,10 @@
 
 
 
-    <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter">
-        <label class="custom-control-label" for="defaultRegisterFormNewsletter">Subscribe to our newsletter</label>
-    </div>
 
-    <button class="btn btn-info my-4 btn-block"  onclick="redirectToPayment()" type="submit">Submit</button>
+    <button class="btn btn-info my-4 btn-block"  type="submit">Submit</button>
 
-
-
+</form>
+    <script src="validation.js"></script>
 </body>
 </html>

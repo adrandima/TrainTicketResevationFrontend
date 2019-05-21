@@ -9,12 +9,13 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
 <body>
-
+<h2 style="text-align: center">Select Your Train(Click)</h2>
 <table id="example2" class="table table-striped table-bordered" style="width:100%">
     <thead>
     <tr>
@@ -65,6 +66,7 @@
 
                 data: obj,
                 columns: [
+
                     {
                         data: null,
                         render: function ( data, type, row ) {
@@ -97,8 +99,11 @@
 
                     { data: 'stopStations[].station' },
 
+
                 ]
             });
+
+
             table.columns().every( function () {
                 var that = this;
 
@@ -119,8 +124,8 @@
                 if(confirm("Do you want to select this train ?")){
                     console.log("pressed");
                     localStorage["trainDetails"] =JSON.stringify(data);
-                    console.log(data);
-                    window.location.href = "http://localhost:63342/TrainTicketResevationFrontend/selectTrain.html?_ijt=6ldlortpmnh4g4ektgn4mpon77";
+                    console.log(data._id);
+                   window.location.href = "http://localhost:63342/TrainTicketResevationFrontend/selectTrain.html?_ijt=6ldlortpmnh4g4ektgn4mpon77";
                 }
 
             } );

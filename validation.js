@@ -1,3 +1,6 @@
+
+
+
 function getUserDetails(){
     var nic;
     var databaseNic;
@@ -26,34 +29,49 @@ function getUserDetails(){
     }
 }
 
-function redirectToPayment(){
-    var data={
-        "noOfTickets": $('#noOfTickets').val(),
-        "phoneNumber": $('#phoneNumber').val(),
-        "selectedClass": $("#selectedClass :selected").text()
 
-    };
-    console.log(data);
-    localStorage["ticketDetails"] = JSON.stringify(data);
-    window.location.href = 'payment.html';
-    alert("success");
+
+var updateTrainDetails =function (){
+
+    var ticketDetails = JSON.parse(localStorage["ticketDetails"]);
+
+    var trainDetails = JSON.parse(localStorage["trainDetails"]);
+    $.ajax({
+        url: 'http://localhost:8080/train/'+trainDetails.trainNo,
+        type: 'put',
+        data: JSON.stringify({
+            "trainNo":trainDetails.trainNo,
+            "trainName":trainDetails.trainName,
+            "seats":(trainDetails.seats-ticketDetails.noOfTickets),
+            "start":trainDetails.start,
+            "destination":trainDetails.destination,
+            "trainDate":trainDetails.trainDate,
+            "startTime":trainDetails.startTime,
+            "stopStations":[{"station":trainDetails.stopStations[0].station,"price":trainDetails.stopStations[0].price},{"station":trainDetails.stopStations[1].station,"price":trainDetails.stopStations[1].price},{"station":trainDetails.stopStations[2].station,"price":trainDetails.stopStations[2].price},{"station":trainDetails.stopStations[3].station,"price":trainDetails.stopStations[3].price}]
+        }),
+        contentType: 'application/json; charset=utf-8',
+        success: function(data){
+            console.log(trainDetails.seats-ticketDetails.noOfTickets);
+
+        },
+        error: function(){
+            console.log("fail");
+        }
+    });
 
 
 }
 
 
 
-function createTrainReservation(){
 
+function createTrainReservation(){
     var trainStartPlace = localStorage["trainStartPlace"];
     var trainDestinationPlace = localStorage["trainDestinationPlace"];
     var paymentDetails = JSON.parse(localStorage["paymentDetails"]);
     var ticketDetails = JSON.parse(localStorage["ticketDetails"]);
     var ticketPrice = JSON.parse(localStorage["ticketPrice"]);
     var trainDetails = JSON.parse(localStorage["trainDetails"]);
-
-
-
     $.ajax({
         url: 'http://localhost:8080/ticket/',
         type: 'post',
@@ -70,6 +88,7 @@ function createTrainReservation(){
         contentType: 'application/json; charset=utf-8',
         success: function(data){
             console.log("Test  success");
+            updateTrainDetails.call();
             alert('Success');
             localStorage.clear();
             window.location.href = "http://localhost:63342/TrainTicketResevationFrontend/trainDetails.html?_ijt=jv7h90sn1qm3edj31kqf21h739";
@@ -87,7 +106,21 @@ function createTrainReservation(){
 
 
 (function($){
+    function redirectToPayment(e){
+        console.log("test")
+        var data={
+            "noOfTickets": $('#noOfTickets').val(),
+            "phoneNumber": $('#phoneNumber').val(),
+            "selectedClass": $("#selectedClass :selected").text()
 
+        };
+        console.log(data);
+        localStorage["ticketDetails"] = JSON.stringify(data);
+        window.location.href = 'http://localhost:63342/TrainTicketResevationFrontend/payment.html?_ijt=5ni75iigvrrb7aj06vfr25agj3';
+        alert("success");
+
+        e.preventDefault();
+    }
 
     function insertPaymentDetails( e ){
         console.log($("#cardNumber").val());
@@ -99,6 +132,7 @@ function createTrainReservation(){
             contentType: 'application/json; charset=utf-8',
             dataType:'json',
             success: function(data){
+
                 var insertedPaymentDetails={
                     "name": $('#name').val(),
                     "nic": $('#nic').val(),
@@ -150,11 +184,7 @@ function createTrainReservation(){
 
 
 
-
-
-
-
-
+    $('#selectReservation').submit( redirectToPayment );
     $('#paymentForm').submit( insertPaymentDetails );
 
 })(jQuery);
