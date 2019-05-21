@@ -90,6 +90,7 @@ function createTrainReservation(){
             console.log("Test  success");
             updateTrainDetails.call();
             alert('Success');
+            sendEmail();
             localStorage.clear();
             window.location.href = "http://localhost:63342/TrainTicketResevationFrontend/trainDetails.html?_ijt=jv7h90sn1qm3edj31kqf21h739";
 
@@ -103,6 +104,67 @@ function createTrainReservation(){
 
 
 }
+function dialogPaymentService( e ){
+
+    $.ajax({
+        url: 'http://localhost:8080/sms/'+ $("#phoneNumber").val(),
+        type: 'get',
+        contentType: 'application/json; charset=utf-8',
+        dataType:'json',
+        success: function(data){
+
+            console.log(data);
+            var pin =prompt("Enter your PIN :");
+            console.log(pin)
+            if(JSON.stringify(pin).localeCompare(JSON.stringify(data))){
+                window.location.href = 'http://localhost:63342/TrainTicketResevationFrontend/ticketConfirmationMobileBill.html?_ijt=cp53imh7kucbncptpsh0s1gq3v';
+
+            }else{
+                alert("Invalid Pin");               }
+
+
+        },
+        error: function(){
+            alert('Invalid Mobile Number');
+        }
+    });
+
+    e.preventDefault();
+
+}
+
+
+
+
+
+function sendEmail(){
+    var user = JSON.parse(localStorage["userDetails"]);
+    console.log("test");
+    $.ajax({
+        url: 'http://localhost:8080/mail/'+user.email,
+        type: 'get',
+        contentType: 'application/json; charset=utf-8',
+        dataType:'json',
+        success: function(data){
+                console.log("test");
+
+                alert("Success. Confirmation email will be received")
+                window.location.href = 'http://localhost:63342/TrainTicketResevationFrontend/trainDetails.html?_ijt=cp53imh7kucbncptpsh0s1gq3v';
+
+
+
+
+        },
+        error: function(){
+            alert('Invalid');
+        }
+    });
+    localStorage.clear();
+
+}
+
+
+
 
 
 (function($){
@@ -116,7 +178,7 @@ function createTrainReservation(){
         };
         console.log(data);
         localStorage["ticketDetails"] = JSON.stringify(data);
-        window.location.href = 'http://localhost:63342/TrainTicketResevationFrontend/payment.html?_ijt=5ni75iigvrrb7aj06vfr25agj3';
+        window.location.href = 'payment.html';
         alert("success");
 
         e.preventDefault();
@@ -182,8 +244,38 @@ function createTrainReservation(){
 
 
 
+    function validate( e ){
+
+        $.ajax({
+            url: 'http://localhost:8080/user/'+ $("#nic").val(),
+            type: 'get',
+            contentType: 'application/json; charset=utf-8',
+            dataType:'json',
+            success: function(data){
+                console.log(data);
+                localStorage["userDetails"] =JSON.stringify(data);
 
 
+
+                if(data.password===($("#userPassword").val())){
+                    window.location.href = "http://localhost:63342/TrainTicketResevationFrontend/trainDetails.html?_ijt=jv7h90sn1qm3edj31kqf21h739";
+
+                }else{
+                    window.location.href = "http://localhost:63342/TrainTicketResevationFrontend/login.html?_ijt=vpat4ke6sjbedm538j4sei4rfu";            }
+
+
+            },
+            error: function(){
+                alert('error');
+            }
+        });
+
+        e.preventDefault();
+    }
+
+
+
+    $('#validateUser').submit(validate);
     $('#selectReservation').submit( redirectToPayment );
     $('#paymentForm').submit( insertPaymentDetails );
 

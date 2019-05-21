@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
     var trainStartPlace = localStorage["trainStartPlace"];
     var trainDestinationPlace = localStorage["trainDestinationPlace"];
@@ -35,6 +36,14 @@
     }
 
 
+
+
+
+    $(document).ready(function(){
+        $("#myModal").modal({
+            keyboard: false
+        });
+    });
 
 
 </script>
@@ -142,16 +151,45 @@
             </div>
         </div>
         <div id="menu1" class="container tab-pane fade"><br>
-            <h3>Menu 1</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
+            <h3>Dialog Payment</h3>
 
+
+            <form id="dialogPayment">
+
+                <div class="form-group row">
+                    <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number (+9477*******)" minlength="12" maxlength="12">
+                    </div>
+                </div>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="#"><span class="badge pull-right">Rs.<span class="" id="ticketPriceSum2"></span></span> Final Payment</a>
+                    </li>
+                </ul><br>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+
+                        <button type="button" class="btn btn-primary" onclick = "dialogPaymentService();" data-toggle="modal" data-target="#exampleModal">
+                            Submit
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 
+
+<!-- Modal -->
+
+
 <script src="validation.js"></script>
 <script>
+
+
+
     $('#myTab a').on('click', function (e) {
         e.preventDefault()
         $(this).tab('show')
@@ -172,7 +210,7 @@
     ticketPrice = ticketPrice * discount;
     localStorage["ticketPrice"] =JSON.stringify(ticketPrice);
     $("#ticketPriceSum").text(ticketPrice);
-
+    $("#ticketPriceSum2").text(ticketPrice);
  </script>
 
 
