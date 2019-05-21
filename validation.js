@@ -156,7 +156,7 @@ function sendEmail(){
 
         },
         error: function(){
-            alert('Invalid');
+            alert('');
         }
     });
     localStorage.clear();
